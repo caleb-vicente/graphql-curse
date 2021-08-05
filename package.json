@@ -4,7 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rimraf dist",
+    "transpile": "babel ./src --out-dir dist --copy-files",
+    "build": "npm-run-all clean transpile", 
+    "server": "node ./dist/main.js",
+    "prod": "set NODE_ENV=production && npm-run-all build server",
+    "dev": "set NODE_ENV=development && npm-run-all build server",
+    "watch:dev": "nodemon",
+    "start": "npm run prod"
   },
   "repository": {
     "type": "git",
@@ -16,5 +23,16 @@
   "bugs": {
     "url": "https://github.com/caleb-vicente/graphql-curse/issues"
   },
-  "homepage": "https://github.com/caleb-vicente/graphql-curse#readme"
+  "homepage": "https://github.com/caleb-vicente/graphql-curse#readme",
+  "dependencies": {
+    "graphql-yoga": "^1.18.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "nodemon": "^2.0.12",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2"
+  }
 }
